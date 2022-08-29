@@ -8,9 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var inputNumber = 0
+    @State private var inputUnit = ""
+    @State private var outputUnit = ""
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            TabView {
+                TemperatureView()
+                    .tabItem {
+                        Image(systemName: "thermometer")
+                        Text("Temperature")
+                    }
+                Text("Length")
+                    .tabItem {
+                        Image(systemName: "ruler")
+                        Text("Length")
+                    }
+                Text("Time")
+                    .tabItem {
+                        Image(systemName: "clock")
+                        Text("Time")
+                    }
+                Text("Volume")
+                    .tabItem {
+                        Image(systemName: "testtube.2")
+                        Text("Volume")
+                    }
+            }
+            .navigationTitle("UnitConverter")
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
