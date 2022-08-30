@@ -10,12 +10,46 @@ import SwiftUI
 struct TemperatureView: View {
     
     @State private var inputNumber = ""
-    @State private var inputUnit = "Celcius"
-    @State private var outputUnit = "Celcius"
+    @State private var inputUnit = K.tempUnit.celcius
+    @State private var outputUnit = K.tempUnit.celcius
     
-    private var result = ""
+    private var convertUnit: String {
+        if inputUnit == K.tempUnit.celcius && outputUnit == K.tempUnit.fahrenheit {
+            return K.tempConversionUnit.celToFah
+        } else if inputUnit == K.tempUnit.celcius && outputUnit == K.tempUnit.kelvin {
+            return K.tempConversionUnit.celToKel
+        } else if inputUnit == K.tempUnit.fahrenheit && outputUnit == K.tempUnit.celcius {
+            return K.tempConversionUnit.fahToCel
+        } else if inputUnit == K.tempUnit.fahrenheit && outputUnit == K.tempUnit.kelvin {
+            return K.tempConversionUnit.fahToKel
+        } else if inputUnit == K.tempUnit.kelvin && outputUnit == K.tempUnit.celcius {
+            return K.tempConversionUnit.kelToCel
+        } else if inputUnit == K.tempUnit.kelvin && outputUnit == K.tempUnit.fahrenheit {
+            return K.tempConversionUnit.kelToFah
+        }
+        return ""
+    }
+
+    private var result: Double {
+        switch(convertUnit) {
+        case K.tempConversionUnit.celToFah:
+            return (Double(inputNumber) ?? 0.0 * 1.8) + 32
+        case K.tempConversionUnit.celToKel:
+            return (Double(inputNumber) ?? 0.0) + 273.15
+        case K.tempConversionUnit.fahToCel:
+            return (((Double(inputNumber) ?? 0.0) - 32) * 5) / 9
+        case K.tempConversionUnit.fahToKel:
+            return ((((Double(inputNumber) ?? 0.0) - 32) * 5) / 9) + 273.15
+        case K.tempConversionUnit.kelToCel:
+            return (Double(inputNumber) ?? 0.0) - 273.15
+        case K.tempConversionUnit.kelToFah:
+            return ((((Double(inputNumber) ?? 0.0) - 273.15) * 5) / 9) + 32
+        default:
+            return Double(inputNumber) ?? 0.0
+        }
+    }
     
-    private let units = ["Celcius", "Fahrenheit", "Kelvin"]
+    private let units = [K.tempUnit.celcius, K.tempUnit.fahrenheit, K.tempUnit.kelvin]
     
     var body: some View {
         Form {
@@ -37,7 +71,7 @@ struct TemperatureView: View {
             }
             
             Section {
-                Text(result)
+                Text(String(result.formatted()))
             } header: {
                 Text("In \(outputUnit), temperature is")
             }
