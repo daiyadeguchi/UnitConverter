@@ -30,22 +30,22 @@ struct TemperatureView: View {
         return ""
     }
 
-    private var result: Double {
+    private var result: String {
         switch(convertUnit) {
         case K.tempConversionUnit.celToFah:
-            return (Double(inputNumber) ?? 0.0 * 1.8) + 32
+            return String(format: "%.1f", (Double(inputNumber) ?? 0.0 * 1.8) + 32)
         case K.tempConversionUnit.celToKel:
-            return (Double(inputNumber) ?? 0.0) + 273.15
+            return String(format: "%.1f", (Double(inputNumber) ?? 0.0) + 273.15)
         case K.tempConversionUnit.fahToCel:
-            return (((Double(inputNumber) ?? 0.0) - 32) * 5) / 9
+            return String(format: "%.1f", (((Double(inputNumber) ?? 0.0) - 32) * 5) / 9)
         case K.tempConversionUnit.fahToKel:
-            return ((((Double(inputNumber) ?? 0.0) - 32) * 5) / 9) + 273.15
+            return String(format: "%.1f", ((((Double(inputNumber) ?? 0.0) - 32) * 5) / 9) + 273.15)
         case K.tempConversionUnit.kelToCel:
-            return (Double(inputNumber) ?? 0.0) - 273.15
+            return String(format: "%.1f", (Double(inputNumber) ?? 0.0) - 273.15)
         case K.tempConversionUnit.kelToFah:
-            return ((((Double(inputNumber) ?? 0.0) - 273.15) * 5) / 9) + 32
+            return String(format: "%.1f", ((((Double(inputNumber) ?? 0.0) - 273.15) * 5) / 9) + 32)
         default:
-            return Double(inputNumber) ?? 0.0
+            return String(Double(inputNumber) ?? 0.0)
         }
     }
     
@@ -71,7 +71,7 @@ struct TemperatureView: View {
             }
             
             Section {
-                Text(String(result.formatted()))
+                Text(result)
             } header: {
                 Text("In \(outputUnit), temperature is")
             }
