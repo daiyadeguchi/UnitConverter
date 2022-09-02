@@ -20,4 +20,12 @@ struct K {
         static let kelToCel = "KelToCel"
         static let kelToFah = "KelToFah"
     }
+    
+    struct lengthUnit {
+        static let meter = "Meter"
+        static let mile = "Mile"
+        static let yard = "Yard"
+        static let foot = "Foot"
+        static let inch = "Inch"
+    }
 }
