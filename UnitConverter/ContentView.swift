@@ -21,7 +21,7 @@ struct ContentView: View {
                         Image(systemName: "thermometer")
                         Text("Temperature")
                     }
-                Text("Length")
+                LengthView()
                     .tabItem {
                         Image(systemName: "ruler")
                         Text("Length")
